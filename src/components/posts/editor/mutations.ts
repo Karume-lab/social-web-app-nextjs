@@ -3,6 +3,7 @@ import { InfiniteData, QueryFilters, useMutation, useQueryClient, } from "@tanst
 import { submitPost } from "./actions";
 import { PostsPage } from "@/lib/types";
 
+
 export const useSubmitPostMutation = () => {
     const { toast } = useToast();
     const queryClient = useQueryClient();
@@ -25,14 +26,24 @@ export const useSubmitPostMutation = () => {
                                     nextCursor: firstPage.nextCursor,
                                 },
                                 ...oldData.pages.slice(1),
-                            ]
+                            ],
                         }
                     }
                 }
             );
+
+
+            queryClient.invalidateQueries({
+                queryKey: queryFilter.queryKey,
+                predicate(query) {
+                    return !query.state.data;
+                }
+            });
+
+
             toast({
                 description: "Post created.",
-            })
+            });
         },
         onError(error) {
             console.error(error);

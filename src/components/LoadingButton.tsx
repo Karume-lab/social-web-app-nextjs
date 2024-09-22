@@ -11,9 +11,12 @@ interface LoadingButtonProps extends ButtonProps {
 
 const LoadingButton: React.FC<LoadingButtonProps> = ({ loading, disabled, className, ...props }) => {
     return (
-        <Button disabled={loading || disabled}
-            className={cn("flex items-center gap-2", className)}>
-            {loading && <Loader2 className='size-5 animate-spin' />}
+        <Button
+            disabled={loading || disabled}
+            className={cn("flex items-center gap-2", className)}
+            {...props}
+        >
+            {loading && <Loader2 className="size-5 animate-spin" />}
             {props.children}
         </Button>
     );

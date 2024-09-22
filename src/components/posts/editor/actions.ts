@@ -8,7 +8,7 @@ import { postDataInclude } from '@/lib/types';
 
 export const submitPost = async (input: string) => {
     const { user } = await validateRequest();
-    if (!user) throw Error("Unauthorized");
+    if (!user) throw new Error("Unauthorized");
     const { content } = createPostSchema.parse({ content: input });
 
     const newPost = await prisma.post.create({
