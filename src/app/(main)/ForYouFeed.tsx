@@ -4,7 +4,7 @@ import Post from '@/components/posts/Post';
 import PostsLoadingSkeleton from '@/components/posts/PostsLoadingSkeleton';
 import { Button } from '@/components/ui/button';
 import kyInstance from '@/lib/ky';
-import { PostPage } from '@/lib/types';
+import { PostsPage } from '@/lib/types';
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react';
 import React from 'react'
@@ -23,7 +23,7 @@ const ForYouFeed = () => {
         queryFn: ({ pageParam }) => kyInstance.get(
             "/api/posts/for-you",
             pageParam ? { searchParams: { cursor: pageParam } } : {},
-        ).json<PostPage>(),
+        ).json<PostsPage>(),
         initialPageParam: null as string | null,
         getNextPageParam: (lastPage) => lastPage.nextCursor,
     });
