@@ -11,6 +11,7 @@ import { formatNumber } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import FollowButton from '@/components/FollowButton';
 import UserPosts from './UserPosts';
+import Linkify from '@/components/linkify';
 
 interface PageProps {
     params: { username: string }
@@ -106,8 +107,18 @@ export const UserProfile: React.FC<UserProfileProps> = async ({ user, loggedInUs
                     <FollowButton userId={user.id} initialState={followerInfo} />
                 }
             </div>
+            {user.bio && (
+                <>
+                    <hr />
+                    <Linkify>
+                        <div className="overflow-hidden whitespace-pre-line break-words">
+                            {user.bio}
+                        </div>
+                    </Linkify>
+                </>
+            )}
         </div>
     );
 }
 
-export default Page
+export default Page;
